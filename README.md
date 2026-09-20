@@ -3,16 +3,19 @@ First Arduino project based on a RGB LED that changes color depending on the tem
 
 ## How it works
 I wanted to make a smart sensor project myself, basically something that takes in data, prints it out, and does something with that data. The project was initially making a red LED blink when crossing a certain temperature threshold, but after completing that I changed it to this. To change the shade of red/blue on the RGB LED, I used a thermistor to detect temperature changes and convert it into resistance. I used SunFounder's official documentation of my specific thermistor to find the formula for it, which is 
+
 $$R_T = R_N \cdot e^{B(\frac{1}{T_K} - \frac{1}{T_N})}$$
 
 And the constants were going to be 10k ohms (RN) at 25 celsius which is 298 kelvin (TN). I also used room temperature of 27C so I can comfortably cross the temperature threshold by just blowing on the thermistor or putting my finger on it. 
 
 As for formula derivations, I had to convert temperature in KELVIN, not celsius, into "units", which is what arduino reads. And since the arduino is 10 bits, the max units is 1023, and the max voltage the arduino can output is 5 volts. Meaning each unit is approximately $5/1023 = .0049 volts$. My goal now is to get temperature to voltage conversion. I simply plugged in the temperature threshold I wanted, 302 kelvin, into the $R_T$ formula above as $T_K$. B is the beta constant which is provided in the SunFounder's documentation. The resistance of the thermistor is around 8389.84 ohms at room temperature. I also needed to include one other fixed resistor with a value of 10k ohms to match the $R_N$ constant of the formula and to create a junction for my analogRead() to detect changing voltage. Now, using Ohms Law, I found the current across the system, which will be the same everywhere throughout because I connected my resistor and thermistor in series.
+
 $$V_(total) = IR_(total)$$ 
 
 Then $V_(total)$ will be 5 volts supplied by the arduino, and $R_(total)$ will be the $R_T$ value we found at room temp, which is 8389.84, plus the additional 10k ohm resistor. Now our current is $\frac{5}{18389.84}$ to get $2.72 \cdot 10^{-4}$. Finding the voltage at room temp will be $V_(room) = (current) \cdot (R_T)$ or $V_(room) = (2.72 \cdot 10^{-4}) \cdot (8389.84)$. This is now temperature converted into voltage, and I get 2.28 volts. The conversion from volts to units is just $2.28 / .0049 = 465.53 units$. This is my value for room temp units. 
 
 For the RGB values, I just chose a temperature range, which is between 20C(567.66 units) to 35C(402.08 units) for me so I can see the difference in color easier. I converted it to units using the steps above, and then just converted that range of units to be between 0 to 255 which is the range that RGB values go to. I used the formula 
+
 $$(\frac{x - offset}{range}) \cdot 255$$
 
 where the offset is the value that will bring my x to a value that can just be divisible by the range, and the range is just the difference between my two temperatures. The offset for my range is 402.08 (the smallest value) and the range is 165.58.

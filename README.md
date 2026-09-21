@@ -25,7 +25,7 @@ For the RGB values, I just chose a temperature range, which is between 20C(567.6
 
 $$(\frac{x - offset}{range}) \cdot 255$$
 
-where the offset is the value that will bring my x to a value that can just be divisible by the range, and the range is just the difference between my two temperatures. The offset for my range is 402.08 (the smallest value) and the range is 165.58. The red and blue values had to be inverse because if they were the same, it would produce a red or blue dominant color depending on temperature, but it would just produce a brighter or dimmer purple. 
+where the offset is the value that will bring my x to a value that can just be divisible by the range, and the range is just the difference between my two temperatures. The offset for my range is 402.08 (the smallest value) and the range is 165.58. The red and blue values had to be inverse because if they were the same, it would just produce a brighter or dimmer purple. The inverse is what actually allows one color to be brighter therefore making the LED more red or more blue.
 
 ## Debugging
 A couple of big important bugs that I ran into:

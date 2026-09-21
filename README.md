@@ -31,5 +31,7 @@ A couple of big important bugs that I ran into:
 
 4) A simple error of the light just not blinking when I was testing the red LED version, it was because i didn't realize 1 equal sign (=) was different than 2 equal signs(==). One is used for comparison, one changes values.
 
+5) A overflow problem that happened when I pushed the temperature past the limit of what I set of 20C to 35C. I put ice next to the thermistor, and instead of going blue like I'd imagine, it turned vivid blue then jumped into bright red. This was because of a negative value that happens when the temperature goes past my limits, so I used if statements to clamp the range between 0 and 255 for the rgb values. 
+
 ## Real vs Ideal
 Before physically building it, I built it on Tinkercad Circuits. It was infinitely easier because instead of using a thermistor, I had another component called the TMP36. It had a simple linear formula for changing temperature directly into volts, unlike what I had to do by turning temperature into resistance, then into volts. It was also much easier to control the temperature in a simulation. The relationship was also inverse from what I assumed on tinkercad. The thermistor and TMP36 were two very very different components. 

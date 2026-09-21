@@ -1,4 +1,5 @@
 # thermistor-rgb-indicator
+Full code: [Temperature-RGB-detector.ino](Temperature-RGB-detector.ino)
 First Arduino project based on a RGB LED that changes color depending on the temperature detected by the thermistor. Below is a gif of the color changing transition of the RGB LED. It starts right when I remove the ice, and warms up as I put my finger over it. (Quality is bad due to conversion gif conversion, see raw video in media folder)
 ![Color change](media/transition.gif)
 
